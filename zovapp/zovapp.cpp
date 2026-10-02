@@ -1,75 +1,95 @@
 ﻿#include <iostream>
-#include <windows.h>
 
-int main()
-{
+int main() {
     std::setlocale(LC_ALL, "ru-RU");
 
-    double distance, time, speed;
+    int sam[2][2] = {
+        {300, 0},
+        {1000, 100}
+    };
 
-    std::cout << " ZADANIE 1\n";
-    std::cout << "Введите расстояние до аэропорта (км): ";
-    std::cin >> distance;
+    double rash[2][3] = {
+        {1, 4, 7},
+        {2, 4, 6}
+    };
 
-    std::cout << "Введите время в пути (часов): ";
-    std::cin >> time;
+    int samolet;
+    double ab, bc, gruz;
 
-    speed = distance / time;
+    std::cout << "Введите номер самолета (1,2) ";
+    std::cin >> samolet;
 
-    std::cout << "Скорость: " << speed << " км/ч\n";
+    std::cout << "Введите расстояние A-B ";
+    std::cin >> ab;
 
-    Sleep(1500);
-    system("cls");
+    std::cout << "Введите расстояние B-C ";
+    std::cin >> bc;
 
-    int timeStart, timeEnd;
+    std::cout << "Введите вес груза ";
+    std::cin >> gruz;
 
-    std::cout << "ZADANIE 2\n";
-    std::cout << "Введите время начала в секундах: ";
-    std::cin >> timeStart;
+    int s = samolet - 1;
+    double r;
 
-    std::cout << "Введите время окончания в секундах: ";
-    std::cin >> timeEnd;
+    if (samolet == 1) {
+        if (gruz <= 750)
+            r = rash[s][0];
+        else if (gruz <= 1500)
+            r = rash[s][1];
+        else if (gruz <= 2000)
+            r = rash[s][2];
+        else {
+            std::cout << "Самолет не может поднять такой груз";
+            return 0;
+        }
+    }
+    else if (samolet == 2) {
+        if (gruz <= 1000)
+            r = rash[s][0];
+        else if (gruz <= 2000)
+            r = rash[s][1];
+        else if (gruz <= 3000)
+            r = rash[s][2];
+        else {
+            std::cout << "Самолет не может поднять такой груз";
+            return 0;
+        }
+    }
 
-    if (timeEnd < timeStart)
-        timeEnd += 24 * 3600;
+    double vrem = sam[s][1];
+    double bak = sam[s][0];
 
-    int seconds = timeEnd - timeStart;
-    int minutes = (seconds + 59) / 60;
-    int cost = minutes * 2;
+    double topAB = ab * r;
 
-    std::cout << "Продолжительность: " << minutes << " минут\n";
-    std::cout << "Стоимость: " << cost << " рублей\n";
+    if (vrem < topAB)
+        topAB -= vrem;
+    else
+        topAB = 0;
 
-    Sleep(1500);
-    system("cls");
+    if (topAB > bak) {
+        std::cout << "Невозможно долететь из A в B";
+        return 0;
+    }
 
-    double consumption, price92, price95, price98;
+    bak -= topAB;
 
-    std::cout << "ZADANIE 3\n";
-    std::cout << "Введите расход бензина (л/100 км): ";
-    std::cin >> consumption;
+    double topBC = bc * r;
 
-    std::cout << "Введите цену АИ-92: ";
-    std::cin >> price92;
+    if (bak >= topBC) {
+        std::cout << "Дозаправка не требуется";
+        std::cout << "\nНужно заправить 0 литров";
+    }
+    else {
+        double zapravka = topBC - bak;
 
-    std::cout << "Введите цену АИ-95: ";
-    std::cin >> price95;
+        if (zapravka > sam[s][0] - bak) {
+            std::cout << "Невозможно долететь из B в C";
+            return 0;
+        }
 
-    std::cout << "Введите цену АИ-98: ";
-    std::cin >> price98;
-
-    std::cout << "\nБензин\tЦена\tСтоимость\n";
-
-    std::cout << "АИ-92\t" << price92 << "\t"
-        << consumption * price92 << " руб.\n";
-
-    std::cout << "АИ-95\t" << price95 << "\t"
-        << consumption * price95 << " руб.\n";
-
-    std::cout << "АИ-98\t" << price98 << "\t"
-        << consumption * price98 << " руб.\n";
-
-    Sleep(1500);
+        std::cout << "Нужно заправить"
+            << zapravka << " литров";
+    }
 
     return 0;
 }
