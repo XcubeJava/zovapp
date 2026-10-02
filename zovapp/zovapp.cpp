@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <windows.h>
 
 int main() {
     std::setlocale(LC_ALL, "ru-RU");
