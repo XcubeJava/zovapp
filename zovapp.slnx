@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="zovapp/zovapp.vcxproj" Id="40b542ce-7c1e-4723-b951-50d115c54ad0" />
+</Solution>
