@@ -2,95 +2,50 @@
 #include <windows.h>
 
 int main() {
-    std::setlocale(LC_ALL, "ru-RU");
+    setlocale(LC_ALL, "ru-RU");
 
-    int sam[2][2] = {
-        {300, 0},
-        {1000, 100}
-    };
+    std::cout << "пин-коды из разных цифр\n";
 
-    double rash[2][3] = {
-        {1, 4, 7},
-        {2, 4, 6}
-    };
+    int kol_vo = 0;
 
-    int samolet;
-    double ab, bc, gruz;
+    for (int a = 0; a <= 9; a++) {
+        for (int b = 0; b <= 9; b++) {
+            for (int c = 0; c <= 9; c++) {
+                for (int d = 0; d <= 9; d++) {
+                    if (a != b && a != c && a != d &&
+                        b != c && b != d && c != d) {
 
-    std::cout << "Введите номер самолета (1,2) ";
-    std::cin >> samolet;
+                        if (kol_vo < 10 || kol_vo >= 5030)
+                            std::cout << a << b << c << d << " ";
 
-    std::cout << "Введите расстояние A-B ";
-    std::cin >> ab;
-
-    std::cout << "Введите расстояние B-C ";
-    std::cin >> bc;
-
-    std::cout << "Введите вес груза ";
-    std::cin >> gruz;
-
-    int s = samolet - 1;
-    double r;
-
-    if (samolet == 1) {
-        if (gruz <= 750)
-            r = rash[s][0];
-        else if (gruz <= 1500)
-            r = rash[s][1];
-        else if (gruz <= 2000)
-            r = rash[s][2];
-        else {
-            std::cout << "Самолет не может поднять такой груз";
-            return 0;
-        }
-    }
-    else if (samolet == 2) {
-        if (gruz <= 1000)
-            r = rash[s][0];
-        else if (gruz <= 2000)
-            r = rash[s][1];
-        else if (gruz <= 3000)
-            r = rash[s][2];
-        else {
-            std::cout << "Самолет не может поднять такой груз";
-            return 0;
+                        kol_vo++;
+                    }
+                }
+            }
         }
     }
 
-    double vrem = sam[s][1];
-    double bak = sam[s][0];
+    std::cout << "\nВсего " << kol_vo << "\n\n";
 
-    double topAB = ab * r;
+    std::cout << "пин-коды с повторяющимися цифрами\n";
 
-    if (vrem < topAB)
-        topAB -= vrem;
-    else
-        topAB = 0;
+    kol_vo = 0;
 
-    if (topAB > bak) {
-        std::cout << "Невозможно долететь из A в B";
-        return 0;
-    }
+    for (int a = 0; a <= 9; a++) {
+        for (int b = 0; b <= 9; b++) {
+            for (int c = 0; c <= 9; c++) {
+                for (int d = 0; d <= 9; d++) {
 
-    bak -= topAB;
+                    if (kol_vo < 10 || kol_vo >= 9990)
+                        std::cout << a << b << c << d << " ";
 
-    double topBC = bc * r;
-
-    if (bak >= topBC) {
-        std::cout << "Дозаправка не требуется";
-        std::cout << "\nНужно заправить 0 литров";
-    }
-    else {
-        double zapravka = topBC - bak;
-
-        if (zapravka > sam[s][0] - bak) {
-            std::cout << "Невозможно долететь из B в C";
-            return 0;
+                    kol_vo++;
+                }
+            }
         }
-
-        std::cout << "Нужно заправить"
-            << zapravka << " литров";
     }
+
+    std::cout << "\nВсего " << kol_vo << "\n";
 
     return 0;
 }
